@@ -1,0 +1,38 @@
+name: menuconfig
+
+on:
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install
+        run: |
+          sudo apt-get update
+          sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
+
+      - name: Download file
+        run: |
+          git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
+          cd immortalwrt-mt798x
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+          cp -f defconfig/mt7981-ax3000.config .config
+
+      - name: Setup tmate session and make menuconfig
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 30
+        with:
+          sudo: false
+          install-dependencies: false
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: config
+          path: .config
