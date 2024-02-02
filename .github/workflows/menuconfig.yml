@@ -24,7 +24,7 @@ jobs:
           ./scripts/feeds install -a
           cp -f defconfig/mt7981-ax3000.config .config
 
-      - name: Setup tmate session 连接后先 Ctrl+C 然后执行 make menuconfig 最后运行touch continue 或 sudo touch /continue # https://github.com/mxschmitt/action-tmate https://github.com/marketplace/actions/debugging-with-ssh
+      - name: Setup tmate session 输入 q 执行 make menuconfig 运行 sudo touch /continue # https://github.com/mxschmitt/action-tmate https://github.com/marketplace/actions/debugging-with-ssh
         uses: mxschmitt/action-tmate@v3
         timeout-minutes: 30
 
