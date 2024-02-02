@@ -27,9 +27,6 @@ jobs:
       - name: Setup tmate session and make menuconfig # https://github.com/mxschmitt/action-tmate https://github.com/marketplace/actions/debugging-with-ssh
         uses: mxschmitt/action-tmate@v3
         timeout-minutes: 30
-        with:
-          sudo: false
-          install-dependencies: false
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
