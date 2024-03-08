@@ -37,8 +37,21 @@ jobs:
           cp -f $GITHUB_WORKSPACE/main.config .config
           make V=s -j$(nproc)
 
+      - name: Find .bin files
+        id: find_files
+        run: |
+          echo "BIN_FILES<<EOF" >> $GITHUB_ENV
+          find immortalwrt-mt798x -type f -name '*.bin' >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: ${{ env.BIN_FILES }}
+
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: 360t7
-          path: immortalwrt-mt798x/*/*/*sysupgrade.bin
+          path: immortalwrt-mt798x/**/*sysupgrade.bin
