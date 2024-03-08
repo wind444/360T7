@@ -52,5 +52,5 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
-          name: mt798x
+          name: 360t7
           path: immortalwrt-mt798x/bin/targets/*.sysupgrade.bin
