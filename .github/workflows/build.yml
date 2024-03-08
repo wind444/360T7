@@ -37,19 +37,8 @@ jobs:
           cp -f $GITHUB_WORKSPACE/main.config .config
           make V=s -j$(nproc)
 
-      - name: organize
-        run: |
-          cd immortalwrt-mt798x/bin/targets/*/*
-          rm -rf packages
-          rm -rf version.buildinfo
-          rm -rf profiles.json
-          rm -rf *rootfs*
-          rm -rf *kernel*
-          rm -rf *.manifest
-          rm -rf sha256sums
-
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: 360t7
-          path: immortalwrt-mt798x/bin/targets/*.sysupgrade.bin
+          path: immortalwrt-mt798x/*/*/*sysupgrade.bin
