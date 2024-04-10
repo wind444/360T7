@@ -12,7 +12,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: install
-        run: sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
+        run: |
+         sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
 
       - name: Download file
         run: |
