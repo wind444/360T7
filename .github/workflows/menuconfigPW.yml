@@ -13,16 +13,25 @@ jobs:
 
       - name: install
         run: |
-          sudo apt-get update
+          sudo -E apt-get -qq update
           sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
+          sudo -E apt-get -qq install build-essential clang flex bison g++ gawk gcc-multilib g++-multilib gettext git libncurses5-dev libssl-dev python3-distutils rsync unzip zlib1g-dev file wget
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
 
       - name: Download file
         run: |
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
           cd immortalwrt-mt798x
           ./scripts/feeds update -a
+          cd openwrt && git clone -b master --single-branch https://github.com/immortalwrt/packages.git packages_master && rm -rf ./feeds/packages/lang/golang && mv ./packages_master/lang/golang ./feeds/packages/lang && rm -rf ./packages_master
           ./scripts/feeds install -a
           cp -f defconfig/mt7981-ax3000.config .config
+          rm -rf feeds/luci/applications/luci-app-passwall/
+          rm -rf feeds/packages/net/xray-core/
+          rm -rf feeds/packages/net/xray-plugin/
+          git clone https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
+          git clone https://github.com/xiaorouji/openwrt-passwall-packages package/luci-app-passwall-packages
 
       - name: Setup tmate session 步骤：【输入q 命令cd immortalwrt-mt798x && make menuconfig 结束运行sudo touch /continue】 # https://github.com/mxschmitt/action-tmate https://github.com/marketplace/actions/debugging-with-ssh
         uses: mxschmitt/action-tmate@v3
