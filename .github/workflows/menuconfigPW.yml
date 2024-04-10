@@ -1,4 +1,4 @@
-name: menuconfig
+name: menuconfigPW
 
 on:
   workflow_dispatch:
