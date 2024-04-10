@@ -1,4 +1,4 @@
-name: menuconfig
+name: menuconfigpw
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
 
       - name: install
         run: |
-          sudo -E apt-get -qq update
+          sudo apt-get update
           sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
 
       - name: Download file
