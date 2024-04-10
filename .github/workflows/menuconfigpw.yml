@@ -21,7 +21,7 @@ jobs:
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
           cd immortalwrt-mt798x
           ./scripts/feeds update -a
-          cd openwrt && git clone -b master --single-branch https://github.com/immortalwrt/packages.git packages_master && rm -rf ./feeds/packages/lang/golang && mv ./packages_master/lang/golang ./feeds/packages/lang && rm -rf ./packages_master
+          cd immortalwrt-mt798x && git clone -b master --single-branch https://github.com/immortalwrt/packages.git packages_master && rm -rf ./feeds/packages/lang/golang && mv ./packages_master/lang/golang ./feeds/packages/lang && rm -rf ./packages_master
           ./scripts/feeds install -a
           cp -f defconfig/mt7981-ax3000.config .config
           rm -rf feeds/luci/applications/luci-app-passwall/
