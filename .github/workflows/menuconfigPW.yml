@@ -1,0 +1,35 @@
+name: menuconfig
+
+on:
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: install
+        run: |
+          sudo apt-get update
+          sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.eu.org/init_build_environment.sh)'
+
+      - name: Download file
+        run: |
+          git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
+          cd immortalwrt-mt798x
+          ./scripts/feeds update -a
+          ./scripts/feeds install -a
+          cp -f defconfig/mt7981-ax3000.config .config
+
+      - name: Setup tmate session 步骤：【输入q 命令cd immortalwrt-mt798x && make menuconfig 结束运行sudo touch /continue】 # https://github.com/mxschmitt/action-tmate https://github.com/marketplace/actions/debugging-with-ssh
+        uses: mxschmitt/action-tmate@v3
+        timeout-minutes: 20
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: config
+          path: immortalwrt-mt798x/.config
