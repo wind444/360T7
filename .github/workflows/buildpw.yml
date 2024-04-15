@@ -34,13 +34,13 @@ jobs:
           ./scripts/feeds update -a
           rm -rf ./package/network/utils/iptables/Makefile
           mv $GITHUB_WORKSPACE/Makefile package/network/utils/iptables/Makefile
+          echo $GITHUB_WORKSPACE
 
       - name: install
         run: |
           cd immortalwrt-mt798x
           ./scripts/feeds install -a
           rm -rf ./package/network/utils/iptables/Makefile
-          mv $GITHUB_WORKSPACE/Makefile package/network/utils/iptables/Makefile
           echo $GITHUB_WORKSPACE
 
       - name: passwall
