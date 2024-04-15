@@ -45,6 +45,8 @@ jobs:
           rm -rf ./feeds/luci/applications/luci-app-passwall
           mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall
           rm -rf ./openwrt-passwall
+          rm -rf ./package/network/utils/iptables/Makefile
+          cp -f $GITHUB_WORKSPACE/Makefile package/network/utils/iptables/Makefile
 
       - name: build
         run: |
