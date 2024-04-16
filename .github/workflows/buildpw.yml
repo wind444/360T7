@@ -31,10 +31,11 @@ jobs:
       - name: update
         run: |
           cd immortalwrt-mt798x
-          ./scripts/feeds update -a
           rm -rf ./package/network/utils/iptables/Makefile
           mv $GITHUB_WORKSPACE/Makefile package/network/utils/iptables/Makefile
-          echo $GITHUB_WORKSPACE
+          rm -rf ./package/kernel/linux/modules/netfilter.mk
+          mv $GITHUB_WORKSPACE/Makefile package/kernel/linux/modules/netfilter.mk
+          ./scripts/feeds update -a
 
       - name: install
         run: |
