@@ -55,14 +55,19 @@ jobs:
           rm -rf ./openwrt-passwall
           git clone https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall-packages
           rm -rf ./package/openwrt-passwall-packages/.git && rm -rf ./package/openwrt-passwall-packages/.github && rm -rf ./package/openwrt-passwall-packages/brook && rm -rf ./package/openwrt-passwall-packages/dns2socks && rm -rf ./package/openwrt-passwall-packages/dns2tcp && rm -rf ./package/openwrt-passwall-packages/hysteria && rm -rf ./package/openwrt-passwall-packages/ipt2socks && rm -rf ./package/openwrt-passwall-packages/naiveproxy && rm -rf ./package/openwrt-passwall-packages/shadowsocks-rust && rm -rf ./package/openwrt-passwall-packages/shadowsocksr-libev && rm -rf ./package/openwrt-passwall-packages/simple-obfs && rm -rf ./package/openwrt-passwall-packages/sing-box && rm -rf ./package/openwrt-passwall-packages/trojan && rm -rf ./package/openwrt-passwall-packages/trojan-go && rm -rf ./package/openwrt-passwall-packages/trojan-plus && rm -rf ./package/openwrt-passwall-packages/tuic-client && rm -rf ./package/openwrt-passwall-packages/v2ray-core && rm -rf ./package/openwrt-passwall-packages/v2ray-plugin && rm -rf ./package/openwrt-passwall-packages/xray-core && rm -rf ./package/openwrt-passwall-packages/xray-plugin && rm -rf ./package/openwrt-passwall-packages/v2ray-geoip && rm -rf ./package/openwrt-passwall-packages/v2ray-geosite && rm -rf ./package/openwrt-passwall-packages/v2ray-geodata
-          
+          rm -rf ./feeds/packages/net/chinadns-ng && rm -rf ./feeds/packages/devel/gn && rm -rf ./feeds/packages/net/microsocks && rm -rf ./feeds/packages/net/tcping
+          mv ./package/openwrt-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng
+          mv ./package/openwrt-passwall-packages/gn ./feeds/packages/devel/gn
+          mv ./package/openwrt-passwall-packages/microsocks ./feeds/packages/net/microsocks
+          mv ./package/openwrt-passwall-packages/pdnsd-alt ./feeds/packages/net/pdnsd-alt
+          mv ./package/openwrt-passwall-packages/tcping ./feeds/packages/net/tcping
 
       - name: build
         run: |
           cd immortalwrt-mt798x
           sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
           cp -f $GITHUB_WORKSPACE/pw.config .config
-          make V=s -j$(nproc)
+          make -j$(nproc)
 
       - name: Upload
         uses: actions/upload-artifact@v2
