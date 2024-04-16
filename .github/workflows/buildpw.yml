@@ -66,6 +66,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: firmware
-          path: |
-            immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-mt7981-360-t7-108M-squashfs-sysupgrade.bin
-            package/network/utils/iptables/Makefile
+          path: immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-mt7981-360-t7-108M-squashfs-sysupgrade.bin
