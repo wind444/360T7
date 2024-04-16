@@ -13,9 +13,9 @@ jobs:
 
       - name: environment
         run: |
-          sudo apt update -y
-          sudo apt full-upgrade -y
-          sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
+          #sudo apt update -y
+          #sudo apt full-upgrade -y
+          #sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
           bzip2 ccache clang cmake cpio curl device-tree-compiler ecj fastjar flex gawk gettext gcc-multilib \
           g++-multilib git gnutls-dev gperf haveged help2man intltool lib32gcc-s1 libc6-dev-i386 libelf-dev \
           libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5 \
@@ -27,6 +27,9 @@ jobs:
       - name: Download
         run: |
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
+
+      - name: th
+        run: |
           cd immortalwrt-mt798x
           rm -rf ./package/network/utils/iptables/Makefile
           mv $GITHUB_WORKSPACE/Makefile package/network/utils/iptables/Makefile
