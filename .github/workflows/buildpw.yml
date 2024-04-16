@@ -28,15 +28,13 @@ jobs:
         run: |
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
 
-      - name: th
+      - name: installsocket
         run: |
           cd immortalwrt-mt798x
           rm -rf ./package/network/utils/iptables/Makefile
           mv $GITHUB_WORKSPACE/Makefile package/network/utils/iptables/Makefile
           rm -rf ./package/kernel/linux/modules/netfilter.mk
           mv $GITHUB_WORKSPACE/netfilter.mk package/kernel/linux/modules/netfilter.mk
-          rm -rf ./include/netfilter.mk
-          mv $GITHUB_WORKSPACE/include_netfilter.mk include/netfilter.mk
 
       - name: update
         run: |
