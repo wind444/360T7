@@ -1,0 +1,69 @@
+name: 360T7pwsocket
+
+on:
+  workflow_dispatch:
+    inputs:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: environment
+        run: |
+          sudo apt update -y
+          sudo apt full-upgrade -y
+          sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
+
+      - name: Download
+        run: |
+          git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
+
+      - name: socket
+        run: |
+          cd immortalwrt-mt798x
+          rm -rf ./package/network/utils/iptables/Makefile
+          mv $GITHUB_WORKSPACE/Makefile package/network/utils/iptables/Makefile
+          rm -rf ./package/kernel/linux/modules/netfilter.mk
+          mv $GITHUB_WORKSPACE/netfilter.mk package/kernel/linux/modules/netfilter.mk
+
+      - name: update
+        run: |
+          cd immortalwrt-mt798x
+          ./scripts/feeds update -a
+
+      - name: install
+        run: |
+          cd immortalwrt-mt798x
+          ./scripts/feeds install -a
+
+      - name: passwall
+        run: |
+          cd immortalwrt-mt798x
+          git clone -b luci-smartdns-dev https://github.com/xiaorouji/openwrt-passwall openwrt-passwall
+          rm -rf ./feeds/luci/applications/luci-app-passwall
+          mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall
+          rm -rf ./openwrt-passwall
+          git clone https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall-packages
+          #rm -rf ./package/openwrt-passwall-packages/.git && rm -rf ./package/openwrt-passwall-packages/.github && rm -rf ./package/openwrt-passwall-packages/brook && rm -rf ./package/openwrt-passwall-packages/dns2socks && rm -rf ./package/openwrt-passwall-packages/dns2tcp && rm -rf ./package/openwrt-passwall-packages/hysteria && rm -rf ./package/openwrt-passwall-packages/ipt2socks && rm -rf ./package/openwrt-passwall-packages/naiveproxy && rm -rf ./package/openwrt-passwall-packages/shadowsocks-rust && rm -rf ./package/openwrt-passwall-packages/shadowsocksr-libev && rm -rf ./package/openwrt-passwall-packages/simple-obfs && rm -rf ./package/openwrt-passwall-packages/sing-box && rm -rf ./package/openwrt-passwall-packages/trojan && rm -rf ./package/openwrt-passwall-packages/trojan-go && rm -rf ./package/openwrt-passwall-packages/trojan-plus && rm -rf ./package/openwrt-passwall-packages/tuic-client && rm -rf ./package/openwrt-passwall-packages/v2ray-core && rm -rf ./package/openwrt-passwall-packages/v2ray-plugin && rm -rf ./package/openwrt-passwall-packages/xray-core && rm -rf ./package/openwrt-passwall-packages/xray-plugin && rm -rf ./package/openwrt-passwall-packages/v2ray-geoip && rm -rf ./package/openwrt-passwall-packages/v2ray-geosite && rm -rf ./package/openwrt-passwall-packages/v2ray-geodata
+          #rm -rf ./feeds/packages/net/chinadns-ng && rm -rf ./feeds/packages/devel/gn && rm -rf ./feeds/packages/net/microsocks && rm -rf ./feeds/packages/net/tcping
+          #mv ./package/openwrt-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng
+          #mv ./package/openwrt-passwall-packages/gn ./feeds/packages/devel/gn
+          #mv ./package/openwrt-passwall-packages/microsocks ./feeds/packages/net/microsocks
+          #mv ./package/openwrt-passwall-packages/pdnsd-alt ./feeds/packages/net/pdnsd-alt
+          #mv ./package/openwrt-passwall-packages/tcping ./feeds/packages/net/tcping
+
+      - name: build
+        run: |
+          cd immortalwrt-mt798x
+          sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
+          cp -f $GITHUB_WORKSPACE/pwsocket.config .config
+          make -j$(nproc)
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-mt7981-360-t7-108M-squashfs-sysupgrade.bin
