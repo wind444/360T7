@@ -14,7 +14,6 @@ jobs:
       - name: environment
         run: |
           sudo apt update -y
-          sudo apt full-upgrade -y
           sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
 
       - name: Download
@@ -30,6 +29,7 @@ jobs:
         run: |
           cd immortalwrt-mt798x
           ./scripts/feeds install -a
+          df -h
 
       - name: passwall
         run: |
@@ -44,6 +44,7 @@ jobs:
           rm -rf ./feeds/packages/devel/gn && mv ./package/luci-app-passwall-packages/gn ./feeds/packages/devel/gn
           rm -rf ./feeds/packages/net/microsocks && mv ./package/luci-app-passwall-packages/microsocks ./feeds/packages/net/microsocks
           rm -rf ./feeds/packages/net/tcping && mv ./package/luci-app-passwall-packages/tcping ./feeds/packages/net/tcping
+          df -h
 
       - name: build
         run: |
@@ -51,6 +52,7 @@ jobs:
           sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
           cp -f $GITHUB_WORKSPACE/pw.config .config
           make -j$(nproc)
+          df -h
 
       - name: Upload
         uses: actions/upload-artifact@v2
