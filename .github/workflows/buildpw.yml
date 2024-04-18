@@ -14,6 +14,9 @@ jobs:
       - name: environment
         run: |
           df -h
+          rm -rf ./*
+          rm -rf ./.??*
+          df -h
           sudo apt update -y
           sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
 
@@ -59,8 +62,3 @@ jobs:
         with:
           name: firmware
           path: immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-mt7981-360-t7-108M-squashfs-sysupgrade.bin
-
-      - name: Cleanup build folder
-        run: |
-          rm -rf ./*
-          rm -rf ./.??*
