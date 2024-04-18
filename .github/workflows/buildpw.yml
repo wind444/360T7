@@ -13,12 +13,14 @@ jobs:
 
       - name: environment
         run: |
+          df -h
           sudo apt update -y
           sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
 
       - name: Download
         run: |
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
+          df -h
 
       - name: update
         run: |
@@ -29,7 +31,6 @@ jobs:
         run: |
           cd immortalwrt-mt798x
           ./scripts/feeds install -a
-          df -h
 
       - name: passwall
         run: |
@@ -44,7 +45,6 @@ jobs:
           rm -rf ./feeds/packages/devel/gn && mv ./package/luci-app-passwall-packages/gn ./feeds/packages/devel/gn
           rm -rf ./feeds/packages/net/microsocks && mv ./package/luci-app-passwall-packages/microsocks ./feeds/packages/net/microsocks
           rm -rf ./feeds/packages/net/tcping && mv ./package/luci-app-passwall-packages/tcping ./feeds/packages/net/tcping
-          df -h
 
       - name: build
         run: |
@@ -59,3 +59,8 @@ jobs:
         with:
           name: firmware
           path: immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-mt7981-360-t7-108M-squashfs-sysupgrade.bin
+
+      - name: Cleanup build folder
+        run: |
+          rm -rf ./*
+          rm -rf ./.??*
