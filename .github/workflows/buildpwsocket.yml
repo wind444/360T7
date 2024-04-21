@@ -6,10 +6,22 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Initialization environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          docker rmi `docker images -q`
+          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php
+          sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
+          sudo -E apt-get -qq autoremove --purge
+          sudo -E apt-get -qq clean
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
 
       - name: environment
         run: |
@@ -45,7 +57,7 @@ jobs:
           rm -rf ./feeds/luci/applications/luci-app-passwall
           mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall
           rm -rf ./openwrt-passwall
-          git clone https://github.com/xiaorouji/openwrt-passwall-packages package/luci-app-passwall-packages
+          git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall-packages package/luci-app-passwall-packages
           rm -rf ./package/luci-app-passwall-packages/.git && rm -rf ./package/luci-app-passwall-packages/.github
           rm -rf ./feeds/packages/net/chinadns-ng && mv ./package/luci-app-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng
           rm -rf ./feeds/packages/devel/gn && mv ./package/luci-app-passwall-packages/gn ./feeds/packages/devel/gn
