@@ -46,15 +46,9 @@ jobs:
         run: |
           cd immortalwrt-mt798x
           git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall openwrt-passwall
-          rm -rf ./feeds/luci/applications/luci-app-passwall
-          mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall
-          rm -rf ./openwrt-passwall
+          rm -rf ./feeds/luci/applications/luci-app-passwall && mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall && rm -rf ./openwrt-passwall
           git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall-packages package/luci-app-passwall-packages
-          rm -rf ./package/luci-app-passwall-packages/.git && rm -rf ./package/luci-app-passwall-packages/.github 
-          rm -rf ./feeds/packages/net/chinadns-ng && mv ./package/luci-app-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng
-          rm -rf ./feeds/packages/devel/gn && mv ./package/luci-app-passwall-packages/gn ./feeds/packages/devel/gn
-          rm -rf ./feeds/packages/net/microsocks && mv ./package/luci-app-passwall-packages/microsocks ./feeds/packages/net/microsocks
-          rm -rf ./feeds/packages/net/tcping && mv ./package/luci-app-passwall-packages/tcping ./feeds/packages/net/tcping
+          rm -rf ./feeds/packages/net/chinadns-ng && mv ./package/luci-app-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng && rm -rf ./package/luci-app-passwall-packages
 
       - name: build
         run: |
