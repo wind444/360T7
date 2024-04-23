@@ -47,8 +47,8 @@ jobs:
           cd immortalwrt-mt798x
           git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall openwrt-passwall
           rm -rf ./feeds/luci/applications/luci-app-passwall && mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall && rm -rf ./openwrt-passwall
-          git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall-packages luci-app-passwall-packages
-          rm -rf ./feeds/packages/net/chinadns-ng && mv ./luci-app-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng && rm -rf ./luci-app-passwall-packages
+          git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages
+          rm -rf ./feeds/packages/net/chinadns-ng && mv ./openwrt-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng && rm -rf ./openwrt-passwall-packages
 
       - name: build
         run: |
