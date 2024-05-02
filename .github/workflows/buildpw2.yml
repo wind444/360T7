@@ -44,7 +44,7 @@ jobs:
       - name: passwall
         run: |
           cd immortalwrt-mt798x
-          git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall2 ./package/openwrt-passwall2
+          git clone -b main --single-branch https://github.com/najloa/openwrt-passwall2 ./package/openwrt-passwall2
           git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages
           rm -rf ./feeds/packages/net/chinadns-ng && mv ./openwrt-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng && rm -rf ./openwrt-passwall-packages
 
