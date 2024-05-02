@@ -41,8 +41,8 @@ jobs:
       - name: build
         run: |
           cd immortalwrt-mt798x
-          sed -i 's/192.168.1.1/192.168.5.1/g' package/base-files/files/bin/config_generate
-          cp -f $GITHUB_WORKSPACE/main.config .config
+          sed -i 's/192.168.1.1/192.168.6.1/g' package/base-files/files/bin/config_generate
+          cp -f $GITHUB_WORKSPACE/mini.config .config
           make V=s -j$(nproc)
 
       - name: Upload
