@@ -35,6 +35,7 @@ jobs:
       - name: update
         run: |
           cd immortalwrt-mt798x
+          rm -rf ./tmp && rm -rf .config
           ./scripts/feeds update -a
 
       - name: install
