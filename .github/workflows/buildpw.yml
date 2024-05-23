@@ -78,7 +78,7 @@ jobs:
 
       - name: firmware
         run: |
-          cd immortalwrt-mt798x/bin/targets/*/*
+          cd immortalwrt-mt798x/bin/targets/mediatek/mt7981
           rm -rf packages
           rm -rf version.buildinfo
           rm -rf profiles.json
@@ -107,12 +107,18 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: |
-            immortalwrt-mt798x/bin/targets/*/*/360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
-            immortalwrt-mt798x/bin/targets/*/*/360T7-108M-${{ env.FIRMWARE_VERSION }}-factory.bin
+            immortalwrt-mt798x/bin/targets/mediatek/mt7981/360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
+            immortalwrt-mt798x/bin/targets/mediatek/mt7981/360T7-108M-${{ env.FIRMWARE_VERSION }}-factory.bin
           asset_name: |
             360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
             360T7-108M-${{ env.FIRMWARE_VERSION }}-factory.bin
           asset_content_type: application/octet-stream
+
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-mt7981-360-t7-108M-squashfs-sysupgrade.bin
 
       - name: 删除工作流运行
         uses: GitRML/delete-workflow-runs@main
