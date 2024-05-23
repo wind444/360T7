@@ -13,8 +13,18 @@ jobs:
 
       - name: environment
         run: |
-          sudo apt update -y
           sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
+
+      - name: Set firmware version
+        run: echo "FIRMWARE_VERSION=$(date +"%y%m%d")" >> $GITHUB_ENV
+
+      - name: Create release tag
+        id: create_tag
+        run: |
+          TAG_NAME="release-${FIRMWARE_VERSION}"
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+          echo "::set-output name=TAG::$TAG_NAME"
 
       - name: Download
         run: |
@@ -56,8 +66,40 @@ jobs:
           cd immortalwrt-mt798x
           make -j$(nproc) || make -j1 || make -j1 V=s
 
-      - name: Upload
-        uses: actions/upload-artifact@v2
+      - name: firmware
+        run: |
+          cd immortalwrt-mt798x/bin/targets/*/*
+          rm -rf packages
+          rm -rf version.buildinfo
+          rm -rf profiles.json
+          rm -rf *rootfs*
+          rm -rf *kernel*
+          rm -rf *.manifest
+          rm -rf sha256sums
+          mv *sysupgrade.bin 360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
+          mv *factory.bin 360T7-108M-${{ env.FIRMWARE_VERSION }}-factory.bin
+
+      - name: Create GitHub Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: firmware
-          path: immortalwrt-mt798x/bin/targets/mediatek/mt7981/immortalwrt-mediatek-mt7981-mt7981-360-t7-108M-squashfs-sysupgrade.bin
+          tag_name: ${{ steps.create_tag.outputs.TAG }}
+          release_name: "Firmware Release ${{ env.FIRMWARE_VERSION }}"
+          draft: false
+          prerelease: false
+
+      - name: Upload firmware files to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: |
+            immortalwrt-mt798x/bin/targets/*/*/360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
+            immortalwrt-mt798x/bin/targets/*/*/360T7-108M-${{ env.FIRMWARE_VERSION }}-factory.bin
+          asset_name: |
+            360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
+            360T7-108M-${{ env.FIRMWARE_VERSION }}-factory.bin
+          asset_content_type: application/octet-stream
