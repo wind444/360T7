@@ -30,7 +30,7 @@ jobs:
 
       - name: Download
         run: |
-          git clone -b openwrt-21.02 --single-branch --filter=blob:none https://github.com/hanwckf/immortalwrt-mt798x.git
+          git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
 
       - name: update
         run: |
