@@ -6,22 +6,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Initialization environment
-        env:
-          DEBIAN_FRONTEND: noninteractive
-        run: |
-          docker rmi `docker images -q`
-          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /etc/mysql /etc/php
-          sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* hhvm* llvm* firefox* google* dotnet* aspnetcore* powershell* openjdk* adoptopenjdk* mysql* php* mongodb* moby* snap* || true
-          sudo -E apt-get -qq autoremove --purge
-          sudo -E apt-get -qq clean
-          sudo mkdir -p /workdir
-          sudo chown $USER:$GROUPS /workdir
 
       - name: environment
         run: |
@@ -31,11 +19,15 @@ jobs:
       - name: Download
         run: |
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
+          cd immortalwrt-mt798x
+          sed -i 's/mt7981-fw-20230306/mt7981-fw-20230717/g' package/mtk/drivers/mt_wifi/Makefile
+          sed -i 's/mt7981-fw-20230411/mt7981-fw-20230717/g' package/mtk/drivers/warp/Makefile
+          sed -i 's/192.168.1.1/192.168.6.1/g' package/base-files/files/bin/config_generate
+          cp -f $GITHUB_WORKSPACE/config/PWognotheme.config .config
 
       - name: update
         run: |
           cd immortalwrt-mt798x
-          rm -rf ./tmp && rm -rf .config
           ./scripts/feeds update -a
 
       - name: install
@@ -50,12 +42,6 @@ jobs:
           rm -rf ./feeds/luci/applications/luci-app-passwall && mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall && rm -rf ./openwrt-passwall
           git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages
           rm -rf ./feeds/packages/net/chinadns-ng && mv ./openwrt-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng && rm -rf ./openwrt-passwall-packages
-
-      - name: config
-        run: |
-          cd immortalwrt-mt798x
-          sed -i 's/192.168.1.1/192.168.6.1/g' package/base-files/files/bin/config_generate
-          cp -f $GITHUB_WORKSPACE/pwminihp.config .config
 
       - name: package
         run: |
