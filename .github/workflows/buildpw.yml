@@ -89,6 +89,12 @@ jobs:
           mv *sysupgrade.bin 360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
           mv *factory.bin 360T7-108M-${{ env.FIRMWARE_VERSION }}-factory.bin
 
+      - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: firmware
+          path: /workdir/immortalwrt-mt798x/bin/targets/mediatek/mt7981/360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
+
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
