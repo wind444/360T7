@@ -4,6 +4,9 @@ on:
   workflow_dispatch:
     inputs:
 
+env:
+  TZ: Asia/Shanghai
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -12,8 +15,14 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: environment
+        env:
+          DEBIAN_FRONTEND: noninteractive
         run: |
+          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
           sudo bash -c 'bash <(curl -s https://build-scripts.immortalwrt.org/init_build_environment.sh)'
+          sudo timedatectl set-timezone "$TZ"
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
 
       - name: Set firmware version
         run: echo "FIRMWARE_VERSION=$(date +"%y%m%d")" >> $GITHUB_ENV
@@ -27,8 +36,13 @@ jobs:
           echo "::set-output name=TAG::$TAG_NAME"
 
       - name: Download
+        working-directory: /workdir
         run: |
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
+          ln -sf /workdir/immortalwrt-mt798x $GITHUB_WORKSPACE/immortalwrt-mt798x
+
+      - name: sh
+        run: |
           cd immortalwrt-mt798x
           sed -i 's/mt7981-fw-20230306/mt7981-fw-20230717/g' package/mtk/drivers/mt_wifi/Makefile
           sed -i 's/mt7981-fw-20230411/mt7981-fw-20230717/g' package/mtk/drivers/warp/Makefile
@@ -36,14 +50,10 @@ jobs:
           cp -f $GITHUB_WORKSPACE/config/PWognotheme.config .config
 
       - name: update
-        run: |
-          cd immortalwrt-mt798x
-          ./scripts/feeds update -a
+        run: cd immortalwrt-mt798x && ./scripts/feeds update -a
 
       - name: install
-        run: |
-          cd immortalwrt-mt798x
-          ./scripts/feeds install -a
+        run: cd immortalwrt-mt798x && ./scripts/feeds install -a
 
       - name: passwall
         run: |
@@ -103,3 +113,9 @@ jobs:
             360T7-108M-${{ env.FIRMWARE_VERSION }}-sysupgrade.bin
             360T7-108M-${{ env.FIRMWARE_VERSION }}-factory.bin
           asset_content_type: application/octet-stream
+
+      - name: 删除工作流运行
+        uses: GitRML/delete-workflow-runs@main
+        with:
+          retain_days: 1
+          keep_minimum_runs: 2
