@@ -31,8 +31,15 @@ jobs:
         uses: mxschmitt/action-tmate@v3
         timeout-minutes: 30
 
+      - name: config
+        run: |
+          cd immortalwrt-mt798x
+          mv .config 360t7.config
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: config
-          path: immortalwrt-mt798x/.config
+          path: |
+            immortalwrt-mt798x/360t7.config
+            360T7/immortalwrt-mt798x/360t7.config
