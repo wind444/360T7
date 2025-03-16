@@ -1,4 +1,4 @@
-name: 360t7 Builder
+name: hanwckf
 
 on:
   repository_dispatch:
