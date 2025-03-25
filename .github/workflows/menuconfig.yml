@@ -16,15 +16,18 @@ jobs:
 
       - name: Download
         run: |
-          #git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
-          git clone -b 2410 --single-branch --filter=blob:none https://github.com/padavanonly/immortalwrt-mt798x-24.10 immortalwrt-mt798x-24.10
-          #cd immortalwrt-mt798x
-          cd immortalwrt-mt798x-24.10
+          git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
+          #git clone -b 2410 --single-branch --filter=blob:none https://github.com/padavanonly/immortalwrt-mt798x-24.10 immortalwrt-mt798x-24.10
+          cd immortalwrt-mt798x
+          #cd immortalwrt-mt798x-24.10
 
-          git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-          git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
+          #git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
+          #git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
           echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
           echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
+          echo "src-git homebox https://github.com/XGHeaven/homebox.git;master" >> "feeds.conf.default"
+          echo "src-git luci-app-homebox https://github.com/selfcan/luci-app-homebox.git;main" >> "feeds.conf.default"
+          
           ./scripts/feeds update -a
           ./scripts/feeds install -a
           cp -f defconfig/mt7981-ax3000.config .config
@@ -40,16 +43,16 @@ jobs:
 
       - name: config
         run: |
-          #cd immortalwrt-mt798x
-          cd immortalwrt-mt798x-24.10
-          mv .config padavanonly.config
+          cd immortalwrt-mt798x
+          #cd immortalwrt-mt798x-24.10
+          mv .config hanwckf.config
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: config
           path: |
-            #immortalwrt-mt798x/360t7.config
-            #360T7/immortalwrt-mt798x/360t7.config
-            immortalwrt-mt798x-24.10/padavanonly.config
-            360T7/immortalwrt-mt798x-24.10/padavanonly.config
+            immortalwrt-mt798x/hanwckf.config
+            360T7/immortalwrt-mt798x/hanwckf.config
+            #immortalwrt-mt798x-24.10/padavanonly.config
+            #360T7/immortalwrt-mt798x-24.10/padavanonly.config
