@@ -1,4 +1,4 @@
-name: menuconfig
+name: menuconfig24.10
 
 on:
   workflow_dispatch:
