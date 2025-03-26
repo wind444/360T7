@@ -17,16 +17,14 @@ jobs:
       - name: Download
         run: |
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
-          #git clone -b 2410 --single-branch --filter=blob:none https://github.com/padavanonly/immortalwrt-mt798x-24.10 immortalwrt-mt798x-24.10
           cd immortalwrt-mt798x
-          #cd immortalwrt-mt798x-24.10
 
           git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
           git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
           #echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
           #echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
-          git clone https://github.com/kenzok8/small-package.git package/small-package && mv ./package/small-package/homebox package/homebox && rm -rf ./package/small-package
-          git clone https://github.com/selfcan/luci-app-homebox package/luci-app-homebox
+          #git clone https://github.com/kenzok8/small-package.git package/small-package && mv ./package/small-package/homebox package/homebox && rm -rf ./package/small-package
+          #git clone https://github.com/selfcan/luci-app-homebox package/luci-app-homebox
           
           ./scripts/feeds update -a
           ./scripts/feeds install -a
@@ -44,7 +42,6 @@ jobs:
       - name: config
         run: |
           cd immortalwrt-mt798x
-          #cd immortalwrt-mt798x-24.10
           mv .config hanwckf.config
 
       - name: Upload artifact
@@ -54,5 +51,3 @@ jobs:
           path: |
             immortalwrt-mt798x/hanwckf.config
             360T7/immortalwrt-mt798x/hanwckf.config
-            #immortalwrt-mt798x-24.10/padavanonly.config
-            #360T7/immortalwrt-mt798x-24.10/padavanonly.config
