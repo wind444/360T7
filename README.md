@@ -8,4 +8,7 @@ https://github.com/XTLS/Xray-core
 
 https://github.com/SagerNet/sing-box
 
+https://github.com/najloa/Sing-Box
+
+
 https://github.com/P3TERX/Actions-OpenWrt
