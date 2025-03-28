@@ -10,5 +10,6 @@ https://github.com/SagerNet/sing-box
 
 https://github.com/najloa/Sing-Box
 
+https://github.com/najloa/v2ray-rules-dat/blob/hidden/geolocation-!cn.txt
 
 https://github.com/P3TERX/Actions-OpenWrt
