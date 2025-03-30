@@ -25,7 +25,7 @@ jobs:
           git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
           git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
           [ -e $UFP_FILE ] && mv $UFP_FILE immortalwrt-mt798x-24.10/ufp.tar
-          tar -xvf ufp.tar && mv ./immortalwrt-mt798x-24.10/udhcpsnoop package/network/utils/udhcpsnoop && mv ./immortalwrt-mt798x-24.10/ufp package/utils/ufp
+          tar -xvf ufp.tar && mv ./udhcpsnoop package/network/utils/udhcpsnoop && mv ./ufp package/utils/ufp
           
           ./scripts/feeds update -a
           ./scripts/feeds install -a
