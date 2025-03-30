@@ -8,8 +8,12 @@ https://github.com/XTLS/Xray-core
 
 https://github.com/SagerNet/sing-box
 
+https://github.com/pymumu/smartdns
+
 https://github.com/najloa/Sing-Box
 
 https://github.com/najloa/v2ray-rules-dat/blob/hidden/geolocation-!cn.txt
+
+https://github.com/openwrt/openwrt/pull/16568
 
 https://github.com/P3TERX/Actions-OpenWrt
