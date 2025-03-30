@@ -21,6 +21,7 @@ jobs:
 
           git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
           git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
+          git clone https://github.com/openwrt/openwrt -b d6ffcdbda9c40fb35d44b0db69561c5b403f3e14 openwrt && mv ./openwrt/package/network/utils/udhcpsnoop package/network/utils/udhcpsnoop && mv ./openwrt/package/utils/ufp package/utils/ufp && rm -rf ./openwrt
           
           ./scripts/feeds update -a
           ./scripts/feeds install -a
