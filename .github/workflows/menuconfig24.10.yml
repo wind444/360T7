@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
     inputs:
 
-env:
-  UFP_FILE: ./ufp.tar
-
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -20,12 +17,11 @@ jobs:
       - name: Download
         run: |
           git clone -b 2410 --single-branch --filter=blob:none https://github.com/padavanonly/immortalwrt-mt798x-24.10 immortalwrt-mt798x-24.10
-          [ -e $UFP_FILE ] && mv $UFP_FILE immortalwrt-mt798x-24.10/ufp.tar
-          tar -xvf ufp.tar && mv ./udhcpsnoop immortalwrt-mt798x-24.10/package/network/utils/udhcpsnoop && mv ./ufp immortalwrt-mt798x-24.10/package/utils/ufp
+          mv ./config/ufp.tar immortalwrt-mt798x-24.10/ufp.tar
           cd immortalwrt-mt798x-24.10
-
           git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
           git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
+          tar -xvf ufp.tar && mv ./udhcpsnoop immortalwrt-mt798x-24.10/package/network/utils/udhcpsnoop && mv ./ufp immortalwrt-mt798x-24.10/package/utils/ufp
           
           ./scripts/feeds update -a
           ./scripts/feeds install -a
