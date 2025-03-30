@@ -9,7 +9,6 @@ env:
   REPO_BRANCH: 2410
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: ./config/padavanonly.config
-  UFP_FILE: ./ufp.tar
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -45,10 +44,8 @@ jobs:
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        [ -e $UFP_FILE ] && mv $UFP_FILE openwrt/ufp.tar
         chmod +x $DIY_P1_SH
         cd openwrt
-        tar -xvf ufp.tar && mv ./udhcpsnoop package/network/utils/udhcpsnoop && mv ./ufp package/utils/ufp
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
