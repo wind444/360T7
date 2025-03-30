@@ -45,7 +45,9 @@ jobs:
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
+        mv ./config/ufp.tar openwrt/ufp.tar
         cd openwrt
+        tar -xvf ufp.tar && mv ./udhcpsnoop package/network/utils/udhcpsnoop && mv ./ufp package/utils/ufp
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
