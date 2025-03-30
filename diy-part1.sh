@@ -16,4 +16,5 @@ git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/pas
 #echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
 #git clone https://github.com/kenzok8/small-package.git package/small-package && mv ./package/small-package/homebox package/homebox && rm -rf ./package/small-package
 #git clone https://github.com/Black-Steel/openwrt-packages-20231128.git package/openwrt-packages-20231128 && mv ./package/openwrt-packages-20231128/luci-app-homebox package/luci-app-homebox && rm -rf ./package/openwrt-packages-20231128
-git clone https://github.com/openwrt/openwrt -b d6ffcdbda9c40fb35d44b0db69561c5b403f3e14 openwrt && mv ./openwrt/package/network/utils/udhcpsnoop package/network/utils/udhcpsnoop && mv ./openwrt/package/utils/ufp package/utils/ufp && rm -rf ./openwrt
+#git clone https://github.com/openwrt/openwrt -b d6ffcdbda9c40fb35d44b0db69561c5b403f3e14 openwrt && mv ./openwrt/package/network/utils/udhcpsnoop package/network/utils/udhcpsnoop && mv ./openwrt/package/utils/ufp package/utils/ufp && rm -rf ./openwrt
+cd && mv ./ufp.tar openwrt/ufp.tar && cd openwrt && tar -xvf ufp.tar && mv ./openwrt/udhcpsnoop package/network/utils/udhcpsnoop && mv ./openwrt/ufp package/utils/ufp
