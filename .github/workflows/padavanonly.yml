@@ -45,7 +45,7 @@ jobs:
         ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
         python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo \
         uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev clang g++ libncurses-dev \
-        python3-distutils file #gcc-aarch64-linux-gnu devscripts debhelper #libjson-c-dev
+        python3-distutils file gcc-aarch64-linux-gnu #devscripts debhelper #libjson-c-dev
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
