@@ -17,13 +17,13 @@ jobs:
       - name: Download
         run: |
           git clone -b 2410 --single-branch --filter=blob:none https://github.com/padavanonly/immortalwrt-mt798x-24.10 immortalwrt-mt798x-24.10
-          mv ./config/ufp.tar immortalwrt-mt798x-24.10/ufp.tar
+          #mv ./config/ufp.tar immortalwrt-mt798x-24.10/ufp.tar
           cd immortalwrt-mt798x-24.10
           git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
           git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
           echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
           echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
-          tar -xvf ufp.tar && mv ./udhcpsnoop package/network/utils/udhcpsnoop && mv ./ufp package/utils/ufp
+          #tar -xvf ufp.tar && mv ./udhcpsnoop package/network/utils/udhcpsnoop && mv ./ufp package/utils/ufp
           ./scripts/feeds update -a
           ./scripts/feeds install -a
           cp -f defconfig/mt7981-ax3000.config .config
