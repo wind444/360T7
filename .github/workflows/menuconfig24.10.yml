@@ -37,7 +37,7 @@ jobs:
 
     - name: Download
       run: |
-        git clone -b 2410 https://github.com/najloa/immortalwrt-mt798x-24.10 immortalwrt-mt798x-24.10
+        git clone -b 2410 https://github.com/padavanonly/immortalwrt-mt798x-24.10 immortalwrt-mt798x-24.10
         cd immortalwrt-mt798x-24.10
         git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
         git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
