@@ -22,3 +22,5 @@ sed -i 's/192.168.6.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 # rm -rf ./feeds/luci/applications/luci-app-passwall && mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall && rm -rf ./openwrt-passwall
 # git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages
 # rm -rf ./feeds/packages/net/chinadns-ng && mv ./openwrt-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng && rm -rf ./openwrt-passwall-packages
+chmod +x ./scripts/convert-devices.uc
+chmod +x ./package/utils/ufp/scripts/convert-devices.uc
