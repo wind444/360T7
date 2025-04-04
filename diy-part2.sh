@@ -16,3 +16,4 @@ sed -i 's/192.168.6.1/192.168.2.1/g' package/base-files/files/bin/config_generat
 # Modify FW
 #sed -i 's/mt7981-fw-20230306/mt7981-fw-20230717/g' package/mtk/drivers/mt_wifi/Makefile
 #sed -i 's/mt7981-fw-20230411/mt7981-fw-20230717/g' package/mtk/drivers/warp/Makefile
+git clone https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./package/lang/golang && mv ./immortalwrt-packages/lang/golang package/lang/golang && rm -rf ./immortalwrt-packages
