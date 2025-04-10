@@ -10,37 +10,41 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '>=1.24.2'
+          check-latest: true
+      - run: go version
 
       - name: environment
         run: |
-          sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison \
-          build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext \
-          gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev \
-          libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev \
-          libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp \
-          ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
-          python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo \
-          uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev clang g++ libncurses-dev \
-          python3-distutils file devscripts debhelper libjson-c-dev
+         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL
+         sudo docker image prune --all --force
+         sudo -E apt-get -qq update
+         sudo -E apt-get -qq install ack antlr3 asciidoc autoconf automake autopoint binutils bison \
+         build-essential bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext \
+         gcc-multilib g++-multilib git gperf haveged help2man intltool libc6-dev-i386 libelf-dev \
+         libfuse-dev libglib2.0-dev libgmp3-dev libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev \
+         libncursesw5-dev libpython3-dev libreadline-dev libssl-dev libtool lrzsz mkisofs msmtp \
+         ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pyelftools \
+         python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo \
+         uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev clang g++ libncurses-dev \
+         python3-distutils file devscripts debhelper libjson-c-dev
+         sudo -E apt-get -qq autoremove --purge
+         sudo -E apt-get -qq clean
 
       - name: Download
         run: |
           git clone --depth=1 https://github.com/hanwckf/immortalwrt-mt798x.git
           cd immortalwrt-mt798x
-
-          git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-          git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
-          echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
-          echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
-          
           ./scripts/feeds update -a
           ./scripts/feeds install -a
+          git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
+          git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
+          rm -rf ./feeds/luci/applications/luci-app-passwall && cp -r ./package/passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall
+          rm -rf ./feeds/packages/net/chinadns-ng && cp -r ./package/passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng
+          git clone https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang && rm -rf ./immortalwrt-packages
           cp -f defconfig/mt7981-ax3000.config .config
-
-          #git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall openwrt-passwall
-          #rm -rf ./feeds/luci/applications/luci-app-passwall && mv ./openwrt-passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall && rm -rf ./openwrt-passwall
-          #git clone -b main --single-branch https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages
-          #rm -rf ./feeds/packages/net/chinadns-ng && mv ./openwrt-passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng && rm -rf ./openwrt-passwall-packages
 
       - name: Setup tmate session 步骤：【输入q 命令cd immortalwrt-mt798x && make menuconfig 结束运行sudo touch /continue】 # https://github.com/mxschmitt/action-tmate https://github.com/marketplace/actions/debugging-with-ssh
         uses: mxschmitt/action-tmate@v3
