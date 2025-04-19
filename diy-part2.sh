@@ -26,4 +26,7 @@ rm -rf ./feeds/packages/net/tcping && cp -r ./package/passwall-packages/tcping .
 rm -rf ./feeds/packages/net/xray-core && cp -r ./package/passwall-packages/xray-core ./feeds/packages/net/xray-core
 rm -rf ./feeds/packages/net/v2ray-geodata && cp -r ./package/passwall-packages/v2ray-geodata ./feeds/packages/net/v2ray-geodata
 rm -rf ./feeds/packages/net/v2ray-plugin && cp -r ./package/passwall-packages/v2ray-plugin ./feeds/packages/net/v2ray-plugin
+cp -r ./package/passwall-packages/geoview ./feeds/packages/net/geoview
+sed -i 's/^GO_PKG_LDFLAGS:=-s -w$/GO_PKG_LDFLAGS:=-s -w -buildid=/' feeds/packages/net/geoview/Makefile
+sed -i '/\$(INSTALL_BIN).*geoview/a \ \tupx --best $(1)/usr/bin/geoview' feeds/packages/net/geoview/Makefile
 git clone https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang && rm -rf ./immortalwrt-packages
