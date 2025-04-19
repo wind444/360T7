@@ -29,6 +29,12 @@ jobs:
         go-version: 'stable'
     - run: go version
 
+    - name: Install UPX
+      uses: crazy-max/ghaction-upx@v3
+      with:
+        version: latest
+        install-only: true
+
     - name: Initialization environment
       env:
         DEBIAN_FRONTEND: noninteractive
