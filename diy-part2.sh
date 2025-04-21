@@ -23,9 +23,19 @@ rm -rf ./feeds/packages/net/dns2socks && cp -r ./package/passwall-packages/dns2s
 rm -rf ./feeds/packages/net/ipt2socks && cp -r ./package/passwall-packages/ipt2socks ./feeds/packages/net/ipt2socks
 rm -rf ./feeds/packages/net/microsocks && cp -r ./package/passwall-packages/microsocks ./feeds/packages/net/microsocks
 rm -rf ./feeds/packages/net/tcping && cp -r ./package/passwall-packages/tcping ./feeds/packages/net/tcping
+rm -rf ./feeds/packages/net/sing-box && cp -r ./package/passwall-packages/sing-box ./feeds/packages/net/sing-box
 rm -rf ./feeds/packages/net/xray-core && cp -r ./package/passwall-packages/xray-core ./feeds/packages/net/xray-core
 rm -rf ./feeds/packages/net/v2ray-geodata && cp -r ./package/passwall-packages/v2ray-geodata ./feeds/packages/net/v2ray-geodata
 rm -rf ./feeds/packages/net/v2ray-plugin && cp -r ./package/passwall-packages/v2ray-plugin ./feeds/packages/net/v2ray-plugin
+rm -rf ./feeds/packages/net/hysteria && cp -r ./package/passwall-packages/hysteria ./feeds/packages/net/hysteria
+rm -rf ./feeds/packages/net/naiveproxy && cp -r ./package/passwall-packages/naiveproxy ./feeds/packages/net/naiveproxy
+rm -rf ./feeds/packages/net/shadowsocks-libev && cp -r ./package/passwall-packages/shadowsocks-libev ./feeds/packages/net/shadowsocks-libev
+rm -rf ./feeds/packages/net/shadowsocks-rust && cp -r ./package/passwall-packages/shadowsocks-rust ./feeds/packages/net/shadowsocks-rust
+rm -rf ./feeds/packages/net/shadowsocksr-libev && cp -r ./package/passwall-packages/shadowsocksr-libev ./feeds/packages/net/shadowsocksr-libev
+rm -rf ./feeds/packages/net/simple-obfs && cp -r ./package/passwall-packages/simple-obfs ./feeds/packages/net/simple-obfs
+rm -rf ./feeds/packages/net/trojan-plus && cp -r ./package/passwall-packages/trojan-plus ./feeds/packages/net/trojan-plus
+rm -rf ./feeds/packages/net/tuic-client && cp -r ./package/passwall-packages/tuic-client ./feeds/packages/net/tuic-client
+rm -rf ./feeds/packages/net/xray-plugin && cp -r ./package/passwall-packages/xray-plugin ./feeds/packages/net/xray-plugin
 cp -r ./package/passwall-packages/geoview ./feeds/packages/net/geoview
 # sed -i 's/^GO_PKG_LDFLAGS:=-s -w$/GO_PKG_LDFLAGS:=-s -w -buildid=/' feeds/packages/net/geoview/Makefile
 # sed -i '/\$(INSTALL_BIN).*geoview/a \ \tupx --best $(1)/usr/bin/geoview' feeds/packages/net/geoview/Makefile
