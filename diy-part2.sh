@@ -15,8 +15,8 @@ sed -i 's/ImmortalWrt-5G/NW/' package/mtk/applications/mtwifi-cfg/files/mtwifi.s
 sed -i 's/ImmortalWrt-6G/NW6G/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i 's/encryption=none/encryption=sae-mixed/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i '/encryption=sae-mixed/a \ \ \ \ set wireless.default_${dev}.key=blue1235' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
-git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
+git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall.git package/passwall
+git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 rm -rf ./feeds/luci/applications/luci-app-passwall && cp -r ./package/passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall
 rm -rf ./feeds/packages/net/chinadns-ng && cp -r ./package/passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng
 rm -rf ./feeds/packages/net/dns2socks && cp -r ./package/passwall-packages/dns2socks ./feeds/packages/net/dns2socks
@@ -39,4 +39,5 @@ rm -rf ./feeds/packages/net/xray-plugin && cp -r ./package/passwall-packages/xra
 cp -r ./package/passwall-packages/geoview ./feeds/packages/net/geoview
 # sed -i 's/^GO_PKG_LDFLAGS:=-s -w$/GO_PKG_LDFLAGS:=-s -w -buildid=/' feeds/packages/net/geoview/Makefile
 # sed -i '/\$(INSTALL_BIN).*geoview/a \ \tupx --best $(1)/usr/bin/geoview' feeds/packages/net/geoview/Makefile
-git clone https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang && rm -rf ./immortalwrt-packages
+git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang
+cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout FETCH_HEAD && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
