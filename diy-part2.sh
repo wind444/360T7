@@ -40,4 +40,4 @@ cp -r ./package/passwall-packages/geoview ./feeds/packages/net/geoview
 # sed -i 's/^GO_PKG_LDFLAGS:=-s -w$/GO_PKG_LDFLAGS:=-s -w -buildid=/' feeds/packages/net/geoview/Makefile
 # sed -i '/\$(INSTALL_BIN).*geoview/a \ \tupx --best $(1)/usr/bin/geoview' feeds/packages/net/geoview/Makefile
 git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang
-cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout FETCH_HEAD && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
+cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
