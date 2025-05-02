@@ -37,7 +37,7 @@ rm -rf ./feeds/packages/net/trojan-plus && cp -r ./package/passwall-packages/tro
 rm -rf ./feeds/packages/net/tuic-client && cp -r ./package/passwall-packages/tuic-client ./feeds/packages/net/tuic-client
 rm -rf ./feeds/packages/net/xray-plugin && cp -r ./package/passwall-packages/xray-plugin ./feeds/packages/net/xray-plugin
 cp -r ./package/passwall-packages/geoview ./feeds/packages/net/geoview
-# sed -i 's/^GO_PKG_LDFLAGS:=-s -w$/GO_PKG_LDFLAGS:=-s -w -buildid=/' feeds/packages/net/geoview/Makefile
-# sed -i '/\$(INSTALL_BIN).*geoview/a \ \tupx --best $(1)/usr/bin/geoview' feeds/packages/net/geoview/Makefile
+# sed -i '/PKG_BUILD_DEPENDS:=/s/$/ upx\/host/' feeds/packages/net/geoview/Makefile
+# sed -i '/\$(INSTALL_DIR) $(1)\/usr\/bin/a \ \tupx --best --lzma $(PKG_INSTALL_DIR)/usr/bin/geoview' feeds/packages/net/geoview/Makefile
 git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang
 cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
