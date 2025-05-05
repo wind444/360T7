@@ -14,8 +14,10 @@ https://github.com/najloa/geoip
 
 https://github.com/najloa/v2ray-rules-dat
 
-https://github.com/najloa/Sing-Box
+https://github.com/v2fly/domain-list-community
 
+
+https://github.com/najloa/Sing-Box
 https://github.com/openwrt/openwrt/pull/16568
 
 参考：https://github.com/P3TERX/Actions-OpenWrt
