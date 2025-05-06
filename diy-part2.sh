@@ -58,9 +58,10 @@ curl -s https://core.telegram.org/resources/cidr.txt > ./feeds/luci/applications
 # 修改argon主题头部字体/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica
 git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon && rm -rf ./feeds/luci/themes/luci-theme-argon && \cp -rf ./package/luci-theme-argon ./feeds/luci/themes/
 git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config && rm -rf ./feeds/luci/applications/luci-app-argon-config && \cp -rf ./package/luci-app-argon-config ./feeds/luci/applications/
-ls && \cp -f ./fonts/* ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts
+\cp -f ./fonts/* ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts
 sed -i 's|TypoGraphica|Monoton|g' ./feeds/luci/themes/luci-theme-argon/less/fonts.less
-./feeds/luci/themes/luci-theme-argon/less/cascade.less
+\cp -f ./cascade.less ./feeds/luci/themes/luci-theme-argon/less/cascade.less
+# 最新版本go
+git clone --depth 1 https://github.com/immortalwrt/packages.git package/immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && \cp -rf ./package/immortalwrt-packages/lang/golang ./feeds/packages/lang/
 # haproxy特定版本
-git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang
-cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
+cd ./package/immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && cd .. && rm -rf ./feeds/packages/net/haproxy && \cp -rf ./package/immortalwrt-packages/net/haproxy ./feeds/packages/net/ && rm -rf ./package/immortalwrt-packages
