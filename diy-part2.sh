@@ -17,25 +17,26 @@ sed -i 's/encryption=none/encryption=sae-mixed/' package/mtk/applications/mtwifi
 sed -i '/encryption=sae-mixed/a \ \ \ \ set wireless.default_${dev}.key=blue1235' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall.git package/passwall
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
-rm -rf ./feeds/luci/applications/luci-app-passwall && cp -r ./package/passwall/luci-app-passwall ./feeds/luci/applications/luci-app-passwall
-rm -rf ./feeds/packages/net/chinadns-ng && cp -r ./package/passwall-packages/chinadns-ng ./feeds/packages/net/chinadns-ng
-rm -rf ./feeds/packages/net/dns2socks && cp -r ./package/passwall-packages/dns2socks ./feeds/packages/net/dns2socks
-rm -rf ./feeds/packages/net/ipt2socks && cp -r ./package/passwall-packages/ipt2socks ./feeds/packages/net/ipt2socks
-rm -rf ./feeds/packages/net/microsocks && cp -r ./package/passwall-packages/microsocks ./feeds/packages/net/microsocks
-rm -rf ./feeds/packages/net/tcping && cp -r ./package/passwall-packages/tcping ./feeds/packages/net/tcping
-rm -rf ./feeds/packages/net/sing-box && cp -r ./package/passwall-packages/sing-box ./feeds/packages/net/sing-box
-rm -rf ./feeds/packages/net/xray-core && cp -r ./package/passwall-packages/xray-core ./feeds/packages/net/xray-core
-rm -rf ./feeds/packages/net/v2ray-geodata && cp -r ./package/passwall-packages/v2ray-geodata ./feeds/packages/net/v2ray-geodata
-rm -rf ./feeds/packages/net/v2ray-plugin && cp -r ./package/passwall-packages/v2ray-plugin ./feeds/packages/net/v2ray-plugin
-rm -rf ./feeds/packages/net/hysteria && cp -r ./package/passwall-packages/hysteria ./feeds/packages/net/hysteria
-rm -rf ./feeds/packages/net/naiveproxy && cp -r ./package/passwall-packages/naiveproxy ./feeds/packages/net/naiveproxy
-rm -rf ./feeds/packages/net/shadowsocks-libev && cp -r ./package/passwall-packages/shadowsocks-libev ./feeds/packages/net/shadowsocks-libev
-rm -rf ./feeds/packages/net/shadowsocks-rust && cp -r ./package/passwall-packages/shadowsocks-rust ./feeds/packages/net/shadowsocks-rust
-rm -rf ./feeds/packages/net/shadowsocksr-libev && cp -r ./package/passwall-packages/shadowsocksr-libev ./feeds/packages/net/shadowsocksr-libev
-rm -rf ./feeds/packages/net/simple-obfs && cp -r ./package/passwall-packages/simple-obfs ./feeds/packages/net/simple-obfs
-rm -rf ./feeds/packages/net/trojan-plus && cp -r ./package/passwall-packages/trojan-plus ./feeds/packages/net/trojan-plus
-rm -rf ./feeds/packages/net/tuic-client && cp -r ./package/passwall-packages/tuic-client ./feeds/packages/net/tuic-client
-rm -rf ./feeds/packages/net/xray-plugin && cp -r ./package/passwall-packages/xray-plugin ./feeds/packages/net/xray-plugin
+rm -rf ./feeds/luci/applications/luci-app-passwall && \cp -rf ./package/passwall/luci-app-passwall ./feeds/luci/applications/
+rm -rf ./feeds/packages/net/chinadns-ng && \cp -rf ./package/passwall-packages/chinadns-ng ./feeds/packages/net/
+rm -rf ./feeds/packages/net/dns2socks && \cp -rf ./package/passwall-packages/dns2socks ./feeds/packages/net/
+rm -rf ./feeds/packages/net/ipt2socks && \cp -rf ./package/passwall-packages/ipt2socks ./feeds/packages/net/
+rm -rf ./feeds/packages/net/microsocks && \cp -rf ./package/passwall-packages/microsocks ./feeds/packages/net/
+rm -rf ./feeds/packages/net/tcping && \cp -rf ./package/passwall-packages/tcping ./feeds/packages/net/
+rm -rf ./feeds/packages/net/sing-box && \cp -rf ./package/passwall-packages/sing-box ./feeds/packages/net/
+rm -rf ./feeds/packages/net/xray-core && \cp -rf ./package/passwall-packages/xray-core ./feeds/packages/net/
+rm -rf ./feeds/packages/net/v2ray-geodata && \cp -rf ./package/passwall-packages/v2ray-geodata ./feeds/packages/net/
+rm -rf ./feeds/packages/net/v2ray-plugin && \cp -rf ./package/passwall-packages/v2ray-plugin ./feeds/packages/net/
+rm -rf ./feeds/packages/net/hysteria && \cp -rf ./package/passwall-packages/hysteria ./feeds/packages/net/
+rm -rf ./feeds/packages/net/naiveproxy && \cp -rf ./package/passwall-packages/naiveproxy ./feeds/packages/net/
+rm -rf ./feeds/packages/net/shadowsocks-libev && \cp -rf ./package/passwall-packages/shadowsocks-libev ./feeds/packages/net/
+rm -rf ./feeds/packages/net/shadowsocks-rust && \cp -rf ./package/passwall-packages/shadowsocks-rust ./feeds/packages/net/
+rm -rf ./feeds/packages/net/shadowsocksr-libev && \cp -rf ./package/passwall-packages/shadowsocksr-libev ./feeds/packages/net/
+rm -rf ./feeds/packages/net/simple-obfs && \cp -rf ./package/passwall-packages/simple-obfs ./feeds/packages/net/
+rm -rf ./feeds/packages/net/trojan-plus && \cp -rf ./package/passwall-packages/trojan-plus ./feeds/packages/net/
+rm -rf ./feeds/packages/net/tuic-client && \cp -rf ./package/passwall-packages/tuic-client ./feeds/packages/net/
+rm -rf ./feeds/packages/net/xray-plugin && \cp -rf ./package/passwall-packages/xray-plugin ./feeds/packages/net/
+\cp -rf ./package/passwall-packages/geoview ./feeds/packages/net/
 # 修改 ./feeds/luci/applications/luci-app-passwall/luasrc/model/cbi/passwall/client/rule.lua
 sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' ./feeds/luci/applications/luci-app-passwall/luasrc/model/cbi/passwall/client/rule.lua
 sed -i 's|translate("Loyalsoldier/geosite")|translate("najloa/geosite")|g' ./feeds/luci/applications/luci-app-passwall/luasrc/model/cbi/passwall/client/rule.lua
@@ -49,19 +50,17 @@ sed -i 's|https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/gf
 sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rule_update.lua
 sed -i 's|https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/gfw.txt|https://raw.githubusercontent.com/najloa/geoip/rules/proxy-list.txt|g' ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rule_update.lua
 sed -i 's|local excluded_domain = {[^}]*}|local excluded_domain = {}|g' ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rule_update.lua
-curl -s https://core.telegram.org/resources/cidr.txt | perl -ne 'print if /^((\d{1,3}\.){3}\d{1,3}\/\d+|([0-9a-fA-F]{1,4}:){2,7}[0-9a-fA-F]{1,4}\/\d{1,3})$/g' > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/proxy_ip
+curl -s https://core.telegram.org/resources/cidr.txt > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/proxy_ip
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/chnlist
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/proxy_host
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/direct_host
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/direct_ip
-cp -r ./package/passwall-packages/geoview ./feeds/packages/net/geoview
-# sed -i '/PKG_BUILD_DEPENDS:=/s/$/ upx\/host/' feeds/packages/net/geoview/Makefile
-# sed -i '/\$(INSTALL_DIR) $(1)\/usr\/bin/a \ \tupx --best --lzma $(PKG_INSTALL_DIR)/usr/bin/geoview' feeds/packages/net/geoview/Makefile
+# 修改argon主题头部字体/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica
+git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon && rm -rf ./feeds/luci/themes/luci-theme-argon && \cp -rf ./package/luci-theme-argon ./feeds/luci/themes/
+git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config && rm -rf ./feeds/luci/applications/luci-app-argon-config && \cp -rf ./package/luci-app-argon-config ./feeds/luci/applications/
+ls && \cp -f ./fonts/* ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts
+sed -i 's|TypoGraphica|Monoton|g' ./feeds/luci/themes/luci-theme-argon/less/fonts.less
+./feeds/luci/themes/luci-theme-argon/less/cascade.less
+# haproxy特定版本
 git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang
 cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
-# 修改argon主题头部字体
-git clone https://github.com/jerrykuku/luci-theme-argon.git && git clone https://github.com/jerrykuku/luci-app-argon-config.git && rm -rf ./feeds/luci/themes/luci-theme-argon && rm -rf ./feeds/luci/applications/luci-app-argon-config
-rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.eot && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.svg && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.ttf && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.woff
-cp ./font/Monoton-Regular.eot ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.eot && cp ./font/Monoton-Regular.svg ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.svg && cp ./font/Monoton-Regular.ttf ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.ttf && cp ./font/Monoton-Regular.woff ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.woff
-sed -i 's|TypoGraphica|Monoton-Regular|g' ./luci-theme-argon/less/fonts.less && sed -i 's|TypoGraphica|Monoton-Regular|g' ./luci-theme-argon/less/cascade.less
-cp -r ./luci-theme-argon ./feeds/luci/themes/luci-theme-argon && cp -r ./luci-app-argon-config ./feeds/luci/applications/luci-app-argon-config
