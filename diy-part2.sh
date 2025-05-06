@@ -59,3 +59,8 @@ cp -r ./package/passwall-packages/geoview ./feeds/packages/net/geoview
 # sed -i '/\$(INSTALL_DIR) $(1)\/usr\/bin/a \ \tupx --best --lzma $(PKG_INSTALL_DIR)/usr/bin/geoview' feeds/packages/net/geoview/Makefile
 git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang
 cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
+# 修改argon主题头部字体
+rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.eot && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.svg && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.ttf && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.woff
+cp -r ./font/Monoton-Regular.eot ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.eot && cp -r ./font/Monoton-Regular.svg ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.svg && cp -r ./font/Monoton-Regular.ttf ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.ttf && cp -r ./font/Monoton-Regular.woff ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.woff
+sed -i 's|TypoGraphica|Monoton-Regular|g' ./luci-theme-argon/less/fonts.less
+sed -i 's|TypoGraphica|Monoton-Regular|g' ./luci-theme-argon/less/cascade.less
