@@ -49,7 +49,7 @@ sed -i 's|https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/gf
 sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rule_update.lua
 sed -i 's|https://fastly.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/gfw.txt|https://raw.githubusercontent.com/najloa/geoip/rules/proxy-list.txt|g' ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rule_update.lua
 sed -i 's|local excluded_domain = {[^}]*}|local excluded_domain = {}|g' ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rule_update.lua
-curl -s https://core.telegram.org/resources/cidr.txt | perl -ne 'print "$_\n" if /^((\d{1,3}\.){3}\d{1,3}\/\d+|([0-9a-fA-F]{1,4}:){2,7}[0-9a-fA-F]{1,4}\/\d{1,3})$/g' > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/proxy_ip
+curl -s https://core.telegram.org/resources/cidr.txt | perl -ne 'print if /^((\d{1,3}\.){3}\d{1,3}\/\d+|([0-9a-fA-F]{1,4}:){2,7}[0-9a-fA-F]{1,4}\/\d{1,3})$/g' > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/proxy_ip
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/chnlist
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/proxy_host
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/direct_host
@@ -60,7 +60,8 @@ cp -r ./package/passwall-packages/geoview ./feeds/packages/net/geoview
 git clone --depth 1 https://github.com/immortalwrt/packages.git immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && mv ./immortalwrt-packages/lang/golang feeds/packages/lang/golang
 cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
 # 修改argon主题头部字体
+git clone https://github.com/jerrykuku/luci-theme-argon.git && git clone https://github.com/jerrykuku/luci-app-argon-config.git && rm -rf ./feeds/luci/themes/luci-theme-argon && rm -rf ./feeds/luci/applications/luci-app-argon-config
 rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.eot && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.svg && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.ttf && rm -rf ./luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica.woff
-cp -r ./font/Monoton-Regular.eot ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.eot && cp -r ./font/Monoton-Regular.svg ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.svg && cp -r ./font/Monoton-Regular.ttf ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.ttf && cp -r ./font/Monoton-Regular.woff ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.woff
-sed -i 's|TypoGraphica|Monoton-Regular|g' ./luci-theme-argon/less/fonts.less
-sed -i 's|TypoGraphica|Monoton-Regular|g' ./luci-theme-argon/less/cascade.less
+cp ./font/Monoton-Regular.eot ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.eot && cp ./font/Monoton-Regular.svg ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.svg && cp ./font/Monoton-Regular.ttf ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.ttf && cp ./font/Monoton-Regular.woff ./luci-theme-argon/htdocs/luci-static/argon/fonts/Monoton-Regular.woff
+sed -i 's|TypoGraphica|Monoton-Regular|g' ./luci-theme-argon/less/fonts.less && sed -i 's|TypoGraphica|Monoton-Regular|g' ./luci-theme-argon/less/cascade.less
+cp -r ./luci-theme-argon ./feeds/luci/themes/luci-theme-argon && cp -r ./luci-app-argon-config ./feeds/luci/applications/luci-app-argon-config
