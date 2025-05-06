@@ -77,7 +77,7 @@ jobs:
           cd immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && rm -rf ./feeds/packages/net/haproxy && mv ./immortalwrt-packages/net/haproxy feeds/packages/net/haproxy && rm -rf ./immortalwrt-packages
           cp -f defconfig/mt7981-ax3000.config .config
 
-      - name: Setup tmate session 步骤：【输入q 命令cd immortalwrt-mt798x && make menuconfig 结束运行sudo touch /continue】 # https://github.com/mxschmitt/action-tmate https://github.com/marketplace/actions/debugging-with-ssh
+      - name: Setup tmate session 步骤：【输入q 命令cd immortalwrt-mt798x && make menuconfig 查找文件find . -type f -name "" 查找目录find . -type d -name ""结束运行sudo touch /continue】 # https://github.com/mxschmitt/action-tmate https://github.com/marketplace/actions/debugging-with-ssh
         uses: mxschmitt/action-tmate@v3
         timeout-minutes: 60
 
