@@ -58,14 +58,13 @@ curl -s https://core.telegram.org/resources/cidr.txt > ./feeds/luci/applications
 # 修改argon主题头部字体/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica
 git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon && rm -rf ./feeds/luci/themes/luci-theme-argon && \cp -rf ./package/luci-theme-argon ./feeds/luci/themes/
 git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config && rm -rf ./feeds/luci/applications/luci-app-argon-config && \cp -rf ./package/luci-app-argon-config ./feeds/luci/applications/
-ls
-echo "GITHUB_WORKSPACE is $GITHUB_WORKSPACE"
-sed -i 's/TypoGraphica/Monoton/' ./feeds/luci/themes/luci-theme-argon/less/fonts.less
+# echo "GITHUB_WORKSPACE is $GITHUB_WORKSPACE"
 find ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts -type f -name "*"
 rm -f ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica*
 \cp -f $GITHUB_WORKSPACE/fonts/* ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts
-\cp -f $GITHUB_WORKSPACE/cascade.less ./feeds/luci/themes/luci-theme-argon/less/cascade.less
-\cp -f $GITHUB_WORKSPACE/cascade.css ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
+#sed -i 's/TypoGraphica/Monoton/' ./feeds/luci/themes/luci-theme-argon/less/fonts.less
+#\cp -f $GITHUB_WORKSPACE/cascade.less ./feeds/luci/themes/luci-theme-argon/less/cascade.less
+rm -f ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css && \cp -f $GITHUB_WORKSPACE/cascade.css ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/
 # 最新版本go
 git clone --depth 1 https://github.com/immortalwrt/packages.git package/immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && \cp -rf ./package/immortalwrt-packages/lang/golang ./feeds/packages/lang/
 # haproxy特定版本
