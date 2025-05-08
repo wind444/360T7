@@ -65,10 +65,10 @@ find ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts -type f
 #\cp -f $GITHUB_WORKSPACE/cascade.less ./feeds/luci/themes/luci-theme-argon/less/cascade.less
 # 替换字体
 rm -f ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica*
-\cp -f $GITHUB_WORKSPACE/fonts/* ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts
-rm -f ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css && \cp -f $GITHUB_WORKSPACE/cascade.css ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/
+\cp -f $GITHUB_WORKSPACE/argon/fonts/* ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts
+\cp -f $GITHUB_WORKSPACE/argon/cascade.css ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
 # 登录界面版本信息优化
-\cp -f $GITHUB_WORKSPACE/footer_login.htm ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon
+\cp -f $GITHUB_WORKSPACE/argon/footer_login.htm ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 # 更新 go
 git clone --depth 1 https://github.com/immortalwrt/packages.git package/immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && \cp -rf ./package/immortalwrt-packages/lang/golang ./feeds/packages/lang/
 # 更新 haproxy
