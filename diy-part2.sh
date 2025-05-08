@@ -55,17 +55,21 @@ curl -s https://core.telegram.org/resources/cidr.txt > ./feeds/luci/applications
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/proxy_host
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/direct_host
 : > ./feeds/luci/applications/luci-app-passwall/root/usr/share/passwall/rules/direct_ip
-# 修改argon主题头部字体/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica
+# echo "路径为：$GITHUB_WORKSPACE"
+# 更新 argon主题
 git clone --depth 1 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon && rm -rf ./feeds/luci/themes/luci-theme-argon && \cp -rf ./package/luci-theme-argon ./feeds/luci/themes/
 git clone --depth 1 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config && rm -rf ./feeds/luci/applications/luci-app-argon-config && \cp -rf ./package/luci-app-argon-config ./feeds/luci/applications/
-# echo "GITHUB_WORKSPACE is $GITHUB_WORKSPACE"
+# argon主题美化
 find ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts -type f -name "*"
-rm -f ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica*
-\cp -f $GITHUB_WORKSPACE/fonts/* ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts
 #sed -i 's/TypoGraphica/Monoton/' ./feeds/luci/themes/luci-theme-argon/less/fonts.less
 #\cp -f $GITHUB_WORKSPACE/cascade.less ./feeds/luci/themes/luci-theme-argon/less/cascade.less
+# 替换字体
+rm -f ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGraphica*
+\cp -f $GITHUB_WORKSPACE/fonts/* ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts
 rm -f ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css && \cp -f $GITHUB_WORKSPACE/cascade.css ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/
-# 最新版本go
+# 登录界面版本信息优化
+\cp -f $GITHUB_WORKSPACE/footer_login.htm ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon
+# 更新 go
 git clone --depth 1 https://github.com/immortalwrt/packages.git package/immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && \cp -rf ./package/immortalwrt-packages/lang/golang ./feeds/packages/lang/
-# haproxy特定版本
+# 更新 haproxy
 cd ./package/immortalwrt-packages && git fetch origin 0c43aa312737634bd564c1ea46e74582c4bdf550 && git checkout 0c43aa312737634bd564c1ea46e74582c4bdf550 && cd .. && cd .. && rm -rf ./feeds/packages/net/haproxy && \cp -rf ./package/immortalwrt-packages/net/haproxy ./feeds/packages/net/ && rm -rf ./package/immortalwrt-packages
