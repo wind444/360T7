@@ -10,7 +10,7 @@
 # find . -type d -name "passwall"
 sed -i 's/192.168.1.1/192.168.10.1/' package/base-files/files/bin/config_generate
 sed -i "s/hostname='[^']*'/hostname='OpenWrt'/" package/base-files/files/bin/config_generate
-grep "hostname=" package/base-files/files/bin/config_generate
+grep "hostname=" ./package/base-files/files/bin/config_generate
 cat /proc/version
 sed -i 's/ImmortalWrt-2.4G/NW2.4G/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i 's/ImmortalWrt-5G/NW/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
@@ -71,6 +71,8 @@ rm -f ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/fonts/TypoGr
 \cp -f $GITHUB_WORKSPACE/argon/cascade.css ./feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/css/cascade.css
 # 登录界面版本信息优化
 \cp -f $GITHUB_WORKSPACE/argon/footer_login.htm ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+sed -i 's/<%:Log in%>/<%:Login%>/' ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
+grep "cbi-button-apply" ./feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
 # 更新 go
 git clone --depth 1 https://github.com/immortalwrt/packages.git package/immortalwrt-packages && rm -rf ./feeds/packages/lang/golang && \cp -rf ./package/immortalwrt-packages/lang/golang ./feeds/packages/lang/
 # 更新 haproxy
