@@ -9,7 +9,8 @@
 # See /LICENSE for more information.
 # find . -type d -name "passwall"
 sed -i 's/192.168.1.1/192.168.10.1/' package/base-files/files/bin/config_generate
-sed -i 's/ImmortalWrt/OpenWrt/' package/base-files/files/bin/config_generate
+sed -i "s/hostname='[^']*'/hostname='OpenWrt'/" package/base-files/files/bin/config_generate
+grep "hostname=" package/base-files/files/bin/config_generate
 sed -i 's/ImmortalWrt-2.4G/NW2.4G/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i 's/ImmortalWrt-5G/NW/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i 's/ImmortalWrt-6G/NW6G/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
