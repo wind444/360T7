@@ -4,6 +4,10 @@ https://github.com/hanwckf/immortalwrt-mt798x
 
 https://github.com/xiaorouji/openwrt-passwall
 
+https://github.com/nikkinikki-org/OpenWrt-nikki
+
+https://github.com/immortalwrt/homeproxy
+
 https://github.com/XTLS/Xray-core
 
 https://github.com/SagerNet/sing-box
