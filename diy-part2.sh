@@ -22,7 +22,7 @@ sed -i '/encryption=sae-mixed/a \ \ \ \ set wireless.default_${dev}.key=blue1235
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 #passwall2
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
-sed -i 's/[ ]*+v2ray-geoip//g; s/[ ]*+v2ray-geosite//g' package/passwall2/luci-app-passwall2/Makefile
+sed -i 's/+xray-core*[ ]//g; s/[ ]*+v2ray-geoip//g; s/[ ]*+v2ray-geosite//g' package/passwall2/luci-app-passwall2/Makefile
 sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' package/passwall2/luci-app-passwall2/luasrc/model/cbi/passwall2/client/rule.lua
 sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' package/passwall2/luci-app-passwall2/root/usr/share/passwall2/rule_update.lua
 #passwall
