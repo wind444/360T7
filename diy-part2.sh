@@ -18,6 +18,8 @@ sed -i 's/ImmortalWrt-5G/NW/' package/mtk/applications/mtwifi-cfg/files/mtwifi.s
 sed -i 's/ImmortalWrt-6G/NW6G/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i 's/encryption=none/encryption=sae-mixed/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i '/encryption=sae-mixed/a \ \ \ \ set wireless.default_${dev}.key=blue1235' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
+#passwall
+git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 #passwall2
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
 sed -i 's/[ ]*+v2ray-geoip//g; s/[ ]*+v2ray-geosite//g' package/passwall2/luci-app-passwall2/Makefile
@@ -25,7 +27,6 @@ sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/lat
 sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' package/passwall2/luci-app-passwall2/root/usr/share/passwall2/rule_update.lua
 #passwall
 #git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-#git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 #rm -rf ./feeds/luci/applications/luci-app-passwall && \cp -rf ./package/passwall/luci-app-passwall ./feeds/luci/applications/
 #rm -rf ./feeds/packages/net/chinadns-ng && \cp -rf ./package/passwall-packages/chinadns-ng ./feeds/packages/net/
 #rm -rf ./feeds/packages/net/dns2socks && \cp -rf ./package/passwall-packages/dns2socks ./feeds/packages/net/
