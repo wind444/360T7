@@ -8,7 +8,7 @@
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 # find . -type d -name "passwall"
-sed -i 's/192.168.1.1/192.168.10.1/' package/base-files/files/bin/config_generate
+#sed -i 's/192.168.1.1/192.168.10.1/' package/base-files/files/bin/config_generate
 sed -i "s/hostname='[^']*'/hostname='OpenWrt'/" package/base-files/files/bin/config_generate
 sed -i 's/immortalwrt.lan/OpenWrt.lan/' feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
 grep ".lan" ./feeds/luci/modules/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
@@ -19,12 +19,12 @@ sed -i 's/ImmortalWrt-6G/NW6G/' package/mtk/applications/mtwifi-cfg/files/mtwifi
 sed -i 's/encryption=none/encryption=sae-mixed/' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 sed -i '/encryption=sae-mixed/a \ \ \ \ set wireless.default_${dev}.key=blue1235' package/mtk/applications/mtwifi-cfg/files/mtwifi.sh
 #passwall
-git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
+#git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 #passwall2
-git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
-sed -i 's/+xray-core*[ ]//g; s/[ ]*+v2ray-geoip//g; s/[ ]*+v2ray-geosite//g' package/passwall2/luci-app-passwall2/Makefile
-sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' package/passwall2/luci-app-passwall2/luasrc/model/cbi/passwall2/client/rule.lua
-sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' package/passwall2/luci-app-passwall2/root/usr/share/passwall2/rule_update.lua
+#git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
+#sed -i 's/+xray-core*[ ]//g; s/[ ]*+v2ray-geoip//g; s/[ ]*+v2ray-geosite//g' package/passwall2/luci-app-passwall2/Makefile
+#sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' package/passwall2/luci-app-passwall2/luasrc/model/cbi/passwall2/client/rule.lua
+#sed -i 's|https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases/latest|https://api.github.com/repos/najloa/geoip/releases/latest|g' package/passwall2/luci-app-passwall2/root/usr/share/passwall2/rule_update.lua
 #passwall
 #git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall.git package/passwall
 #rm -rf ./feeds/luci/applications/luci-app-passwall && \cp -rf ./package/passwall/luci-app-passwall ./feeds/luci/applications/
